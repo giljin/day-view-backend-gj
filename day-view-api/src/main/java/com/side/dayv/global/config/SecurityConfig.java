@@ -17,8 +17,13 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable();
+                .formLogin().loginPage("/login")
+                //.httpBasic().disable();
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .defaultSuccessUrl("/slogin");
+
 
         return http.build();
     }
