@@ -3,6 +3,7 @@ package com.side.dayv.oauth.entity;
 import com.side.dayv.member.entity.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
 public class MemberPrincipal implements OAuth2User, UserDetails, OidcUser {
 
@@ -70,7 +72,7 @@ public class MemberPrincipal implements OAuth2User, UserDetails, OidcUser {
 
     @Override
     public Map<String, Object> getAttributes() {
-        return null;
+        return attributes;
     }
 
     @Override
@@ -83,11 +85,19 @@ public class MemberPrincipal implements OAuth2User, UserDetails, OidcUser {
         return null;
     }
 
+
     public static MemberPrincipal create(Member member) {
         return new MemberPrincipal(
                 member.getEmail(),
                 "",
                 member.getProvider()
         );
+    }
+
+    public static MemberPrincipal create(Member user, Map<String, Object> attributes) {
+        MemberPrincipal memberPrincipal = create(user);
+        memberPrincipal.setAttributes(attributes);
+
+        return memberPrincipal;
     }
 }

@@ -57,6 +57,7 @@ public class Member {
     @Builder
     public Member(String email
             , String nickname
+            , ProviderType provider
             , LocalDateTime createdDate
             , LocalDateTime lastModifiedDate
             , String profileImageUrl
@@ -68,6 +69,18 @@ public class Member {
         this.lastModifiedDate = lastModifiedDate;
         this.profileImageUrl = profileImageUrl;
         this.birthday = birthday;
+        this.refreshToken = refreshToken;
+    }
+
+    public void changeNickName(String nickname){
+        this.nickname = nickname;
+    }
+
+    public void changeProfileImageUrl(String profileImageUrl){
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public void changeRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
 }
