@@ -46,7 +46,7 @@ public class AuthToken {
         return this.getTokenClaims() != null;
     }
 
-    private Claims getTokenClaims() {
+    public Claims getTokenClaims() {
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(key)
@@ -68,7 +68,7 @@ public class AuthToken {
     }
     public Claims getExpiredTokenClaims(){
         try {
-            Jwts.parserBuilder()
+            return Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token)
@@ -77,7 +77,7 @@ public class AuthToken {
             log.info("Expired JWT token.");
             return e.getClaims();
         }
-        return null;
+
     }
 
 }

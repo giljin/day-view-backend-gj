@@ -1,25 +1,27 @@
 package com.side.dayv.member.entity;
 
 import com.side.dayv.oauth.entity.ProviderType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.cglib.core.Local;
+import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "member")
 public class Member {
 
     @Id
     @Column(name = "member_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
     @Column(name = "provider")
@@ -47,11 +49,9 @@ public class Member {
     private String profileImageUrl;
 
     @Column(name = "birthday")
-    @NotNull
     private LocalDate birthday;
 
     @Column(name = "refresh_token")
-    @NotNull
     private String refreshToken;
 
     @Builder
@@ -70,6 +70,7 @@ public class Member {
         this.profileImageUrl = profileImageUrl;
         this.birthday = birthday;
         this.refreshToken = refreshToken;
+        this.provider = provider;
     }
 
     public void changeNickName(String nickname){
