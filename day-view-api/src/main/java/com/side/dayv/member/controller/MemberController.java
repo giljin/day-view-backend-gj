@@ -17,12 +17,10 @@ public class MemberController {
     private final MemberService memberService;
 
 
-    @GetMapping
+    @GetMapping("/test")
     public ApiResponse getUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         Member member = memberService.getMember(principal.getUsername());
-
         return ApiResponse.success("member", member);
     }
 }

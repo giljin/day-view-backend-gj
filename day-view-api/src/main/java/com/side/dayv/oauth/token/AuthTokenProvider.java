@@ -41,8 +41,8 @@ public class AuthTokenProvider {
 
     public Authentication getAuthentication(AuthToken authToken){
         if(authToken.validate()){
-            Claims claims = authToken.getExpiredTokenClaims();
-            System.out.println("::==" + claims);
+            Claims claims = authToken.getTokenClaims();
+
             Collection<? extends GrantedAuthority> authorities =
                     Arrays.stream(new String[]{})
                             .map(SimpleGrantedAuthority::new)
@@ -50,7 +50,7 @@ public class AuthTokenProvider {
             log.debug("claims subject := [{}]", claims.getSubject());
             User principal = new User(claims.getSubject(), "", authorities);
 
-            return new UsernamePasswordAuthenticationToken(principal, authToken, null);
+            return new UsernamePasswordAuthenticationToken(principal, authToken, authorities);
         }
         throw new TokenValidFailedException();
     }
